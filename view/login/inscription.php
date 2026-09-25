@@ -1,9 +1,9 @@
 
         <div class="row justify-content-center">
             <div class="col-md-6">
-                    <div class="card shadow-sm">
+                    <div class="card creche-card">
                         <div class="card-body p-4">
-                            <h2 class="card-title text-center mb-4">Inscription</h2>
+                            <h2 class="card-title text-center mb-4" style="color: var(--secondary-color);">Inscription</h2>
                             <form action= "controller/utilisateur/utilisateurController.php" method="POST">
                                 <div class="row mb-3">
                                     <div class="col">
@@ -28,7 +28,7 @@
                                     <input type="text" class="form-control" id="telephone" name="telephone" required>
                                 </div>
                                 <input type="hidden" value="inscrire" name= "action">
-                                <input type="submit" value="inscrire" class="btn btn-success w-100" name= "inscrire">
+                                <input type="submit" value="S'inscrire" class="btn creche-btn-secondary w-100 mt-3" name= "inscrire">
                             </form>
                         </div>
                     </div>

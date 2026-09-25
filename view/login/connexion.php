@@ -1,9 +1,9 @@
 
 <div class="row justify-content-center">
     <div class="col-md-5">
-        <div class="card shadow-sm">
+        <div class="card creche-card">
             <div class="card-body p-4">
-                <h2 class="card-title text-center mb-4">Connexion</h2>
+                <h2 class="card-title text-center mb-4" style="color: var(--primary-color);">Connexion</h2>
 
                 <?php if (isset($erreur)): ?>
                     <div class="bg-red-100 text-red-700 p-3 rounded-md mb-4 text-sm text-center">
@@ -20,7 +20,7 @@
                         <input type="password" class="form-control" id="password" name="mdp" required>
                     </div>
                     <input type="hidden" value="login" name= "action">
-                    <input type="submit" value="se connecter" name= "login">
+                    <input type="submit" value="Se connecter" name="login" class="btn creche-btn-primary w-100 mt-3">
                 </form>
             </div>
         </div>
