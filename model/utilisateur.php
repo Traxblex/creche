@@ -34,14 +34,13 @@ class utilisateur
         $req -> bindparam(":telephone", $telephone);
         return $req->execute();
     }
-
-    public function checkUtilisateur($email,$mdp)
+     public function login($email,$mdp)
     {
         $req = $this->bdd->prepare("SELECT * FROM utilisateur WHERE email = :email && mdp =:mdp");
         $req->execute(['email' => $email,'mdp'=>$mdp]);
         return $req->fetch();
     }
-
+    
 }
 
 ?>
