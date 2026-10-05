@@ -21,7 +21,7 @@
 
         <div>
             <label for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">Adresse email</label>
-            <input type="email" id="email" name="email" required placeholder="jean.dupont@email.com"
+            <input type="email" id="email" name="email" required placeholder="allama.camara@email.com"
                 class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all">
         </div>
         
@@ -46,13 +46,13 @@
         <div>
             <label for="role-select" class="block text-sm font-medium text-gray-700">Je suis un :</label>
                 <select name="role" id="role-select" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                    <option value="freelance">Parent</option>
-                    <option value="client">Animateur</option>
+                    <option value="parent">Parent</option>
+                    <option value="animateur">Animateur</option>
                 </select>
         </div>
 
-        <div id="champs-client-supplementaires" class="hidden mt-4 space-y-4 p-4 border border-gray-200 rounded-lg">
-            <h3 class="text-sm font-bold text-gray-700">Informations suplementaire</h3>
+        <div id="animateur" class="hidden mt-4 space-y-4 p-4 border border-gray-200 rounded-lg">
+            <h3 class="text-sm font-bold text-gray-700">Informations Animateur</h3>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700"> Experience </label>
@@ -60,10 +60,19 @@
             </div>
             
             <div>
-                <label class="block text-sm font-medium text-gray-700"></label>
-                <input type="number" name="siret" maxlength="14" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <label class="block text-sm font-medium text-gray-700"> Disponibilité </label>
+                <input type="radio" name="disponible" value="1" class="mr-2"> Oui
+                <input type="radio" name="disponible" value="0" class="mr-2"> Non
             </div>
                 
+        </div>
+        <div id="parent" class=" mt-4 space-y-4 p-4 border border-gray-200 rounded-lg">
+            <h3 class="text-sm font-bold text-gray-700">Informations Parent</h3>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700"> profession </label>
+                <input type="text" name="profession" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+            </div>    
         </div>
 
         <input type="hidden" value="inscrire" name= "action">
@@ -77,3 +86,23 @@
         </p>
     </div>
 </div>
+
+<script>
+  const animateur = document.getElementById('animateur');
+  const parent = document.getElementById('parent');
+const roleSelect = document.getElementById('role-select');
+if (roleSelect) {
+  roleSelect.addEventListener('change', function() {
+    if (this.value == 'animateur') {
+      animateur.classList.remove('hidden');
+      parent.classList.add('hidden');
+    } else if (this.value == 'parent') {
+      parent.classList.remove('hidden');
+      animateur.classList.add('hidden');
+    } else {
+      animateur.classList.add('hidden');
+      parent.classList.add('hidden');
+    }
+  });
+}
+</script>

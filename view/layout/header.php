@@ -34,11 +34,3 @@
     <!-- Conteneur principal -->
     <main class="flex-grow container mx-auto px-6 py-10">
 
-<script>
-  const btn = document.getElementById('mobile-menu-button');
-  const menu = document.getElementById('mobile-menu');
-
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-  });
-</script>

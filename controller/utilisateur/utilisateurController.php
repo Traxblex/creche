@@ -25,11 +25,18 @@
             $this->utilisateur = new Utilisateur($bdd);
         }
 
-        public function create(){
-            $this->utilisateur->ajouterUtilisateur($_POST["nom"],$_POST["prenom"],$_POST["email"],$_POST["mdp"],$_POST["telephone"] );
-            header('location:http://localhost:8888/promo321/info/cours_info_shapeche/creche/index.php?page=connexion');
-            var_dump('je passe ici');
-        die();
+        public function create()
+        {
+        
+            if ($_POST['role'] == 'parent') {
+                $this->utilisateur->ajouterUtilisateur($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['telephone'], $_POST['role'], $_POST['profession'], null, null);
+            } else {
+
+                $this->utilisateur->ajouterUtilisateur($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['telephone'], $_POST['role'], null, $_POST['annee_exp'], $_POST['disponible']);
+            }
+            header('Location: http://localhost:8888/promo321/info/cours_info_shapeche/creche/index.php?page=index');
+            exit(); 
+
         }
         public function login()
         {

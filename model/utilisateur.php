@@ -9,30 +9,40 @@ class utilisateur
         $this->bdd = $bdd;
     }
 
-    public function ajouterUtilisateur ($nom, $prenom, $email, $mdp, $telephone)
+    public function ajouterUtilisateur ($nom, $prenom, $email, $mdp, $telephone, $role, $profession= null, $annee_exp = null,$disponible = null)
     {
-        $req = $this -> bdd -> prepare("INSERT INTO utilisateur (nom, prenom, email, mdp, telephone) values (:nom, :prenom, :email, :mdp, :telephone)");
+        $req = $this -> bdd -> prepare("INSERT INTO utilisateur (nom, prenom, email, mdp, telephone, role) values (:nom, :prenom, :email, :mdp, :telephone, :role)");
         $req -> bindparam(":nom", $nom);
         $req -> bindparam(":prenom", $prenom);
         $req -> bindparam(":email", $email);
         $req -> bindparam(":mdp", $mdp);
         $req -> bindparam(":telephone", $telephone);
-        return $req->execute();
-    }
+        $req -> bindparam(":role", $role);
+        $req->execute();
+        $id_utilisateur = $this->bdd->lastInsertId();
 
-    public function delete($id){
-        $req = $this->bdd->prepare('DELETE FROM utilisateur WERE id = ?');
-        return $req->execute([$id]);
+        if ($role == 'parent') {
+            $reqs = $this->bdd->prepare('insert into parent(profession, id_utilisateur) values (:profession, :id_utilisateur)');
+            $reqs->bindParam(':profession', $profession);
+            $reqs->bindParam(':id_utilisateur', $id_utilisateur); 
+            $reqs->execute();
+
+        } else {
+            $reqs = $this->bdd->prepare('insert into animateur(annee_exp, disponible, id_utilisateur) values (:annee_exp, :disponible, :id_utilisateur)');
+            $reqs->bindParam(':annee_exp', $annee_exp);
+            $reqs->bindParam(':disponible', $disponible);
+            $reqs->bindParam(':id_utilisateur', $id_utilisateur);
+            $reqs->execute();
+        }
+        return true;        
+
     }
-    public function update($nom, $prenom, $email, $mdp, $telephone)
+        
+
+    public function delete(){
+    }
+    public function update()
     {
-    $req = $this -> bdd -> prepare("UPDATE utilisateur SET nom = :nom, prenom = :prenom, email = :email, mdp = :mdp, telephone = :telephone WHERE id = :id");
-        $req -> bindparam(":nom", $nom);
-        $req -> bindparam(":prenom", $prenom);
-        $req -> bindparam(":$email", $email);
-        $req -> bindparam(":mdp", $mdp);
-        $req -> bindparam(":telephone", $telephone);
-        return $req->execute();
     }
      public function login($email,$mdp)
     {
