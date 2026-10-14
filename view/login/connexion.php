@@ -8,7 +8,7 @@
             <?= ($erreur) ?>
         </div>
     <?php endif; ?>
-    <form action="controller/utilisateur/utilisateurController.php"  method="POST">
+    <form action="controller/utilisateurController.php" method="POST">
         <div>
             <label for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">Adresse email</label>
             <input type="email" id="email" name="email" required placeholder="nom.prenom@email.com"

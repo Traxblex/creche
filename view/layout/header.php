@@ -23,8 +23,8 @@
                 <a href="index.php?page=connexion" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Connexion</a>
                 <a href="index.php?page=inscription" class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition-colors font-medium shadow-sm">S'inscrire</a>
                 <?php else: ?>
-                <a href="index.php?page=deconnexion" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Deconnexion</a>
-                <a href="index.php?page=dashboard" class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition-colors font-medium shadow-sm">dashboard</a>
+                <a href="index.php?page=dashboard" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Mon espace</a>
+                <a href="index.php?page=deconnexion" class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition-colors font-medium shadow-sm">Déconnexion</a>
                 <?php endif ?>
             </div>
             
@@ -33,4 +33,3 @@
 
     <!-- Conteneur principal -->
     <main class="flex-grow container mx-auto px-6 py-10">
-

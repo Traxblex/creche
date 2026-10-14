@@ -9,7 +9,7 @@ class utilisateur
         $this->bdd = $bdd;
     }
 
-    public function ajouterUtilisateur ($nom, $prenom, $email, $mdp, $telephone, $role, $profession= null, $annee_exp = null,$disponible = null)
+    public function ajouterUtilisateur ($nom, $prenom, $email, $mdp, $telephone, $role, $profession= null, $experience = null,$disponible = null)
     {
         $req = $this -> bdd -> prepare("INSERT INTO utilisateur (nom, prenom, email, mdp, telephone, role) values (:nom, :prenom, :email, :mdp, :telephone, :role)");
         $req -> bindparam(":nom", $nom);
@@ -28,8 +28,8 @@ class utilisateur
             $reqs->execute();
 
         } else {
-            $reqs = $this->bdd->prepare('insert into animateur(annee_exp, disponible, id_utilisateur) values (:annee_exp, :disponible, :id_utilisateur)');
-            $reqs->bindParam(':annee_exp', $annee_exp);
+            $reqs = $this->bdd->prepare('insert into animateur(experience, disponible, id_utilisateur) values (:experience, :disponible, :id_utilisateur)');
+            $reqs->bindParam(':experience', $experience);
             $reqs->bindParam(':disponible', $disponible);
             $reqs->bindParam(':id_utilisateur', $id_utilisateur);
             $reqs->execute();
@@ -50,11 +50,17 @@ class utilisateur
         $req->execute(['email' => $email,'mdp'=>$mdp]);
         return $req->fetch();
     }
+
+    public function trouverParId(int $id): ?array
+    {
+        $req = $this->bdd->prepare('SELECT id, nom, prenom, email, telephone, role FROM utilisateur WHERE id = ?');
+        $req->execute([$id]);
+        return $req->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
     
 }
 
 ?>
-
 
 
 

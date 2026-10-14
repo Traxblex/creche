@@ -23,12 +23,15 @@ include __DIR__ . '/view/layout/header.php';
         case 'connexion':
             include __DIR__ . '/view/login/connexion.php';
             break;
+        case 'dashboard':
+            include __DIR__ . '/view/dashboard/index.php';
+            break;
         case 'userController':
-            include __DIR__ . "/controller/utilisateur/utilisateurController.php";
+            include __DIR__ . "/controller/utilisateurController.php";
             break;
 
         default:
             include __DIR__ . '/view/accueil/index.php';
             break;
     }
-    ?>
+include __DIR__ . '/view/layout/footer.php';

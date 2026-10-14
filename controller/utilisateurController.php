@@ -1,6 +1,6 @@
 <?php
-    include("../../model/utilisateur.php");
-    include("../../bdd/bdd.php");
+    include("../model/utilisateur.php");
+    include("../bdd/bdd.php");
     session_start();
 
     if (isset($_POST["action"])) {
@@ -32,7 +32,7 @@
                 $this->utilisateur->ajouterUtilisateur($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['telephone'], $_POST['role'], $_POST['profession'], null, null);
             } else {
 
-                $this->utilisateur->ajouterUtilisateur($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['telephone'], $_POST['role'], null, $_POST['annee_exp'], $_POST['disponible']);
+                $this->utilisateur->ajouterUtilisateur($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['telephone'], $_POST['role'], null, $_POST['experience'], $_POST['disponible']);
             }
             header('Location: http://localhost:8888/promo321/info/cours_info_shapeche/creche/index.php?page=index');
             exit(); 
@@ -50,6 +50,7 @@
         
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_role'] = $user['role'];
 
                
                 header("Location: http://localhost:8888/promo321/info/cours_info_shapeche/creche/index.php?page=dashboard");

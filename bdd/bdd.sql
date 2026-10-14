@@ -1,40 +1,48 @@
-CREATE DATABASE creche;
+CREATE DATABASE IF NOT EXISTS creche CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE creche;
 
-use creche;
-
-create table utilisateur (
-id int not null AUTO_INCREMENT,
-nom varchar(255) not null,
-prenom varchar(255) not null,
-email varchar(255) not null unique,
-mdp varchar(255) not null,
-telephone varchar(255) not null unique,
-role varchar(255) not null,
-PRIMARY KEY (id)
+CREATE TABLE utilisateur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    prenom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    mdp VARCHAR(255) NOT NULL,
+    telephone VARCHAR(255) NOT NULL UNIQUE,
+    role ENUM('parent', 'animateur', 'admin') NOT NULL
 );
-CREATE TABLE  parent (
-    id int(11) not null AUTO_INCREMENT,
+
+CREATE TABLE parent (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     profession VARCHAR(255),
-    id_utilisateur INT,
-    foreign key (id_utilisateur) references utilisateur(id)
+    id_utilisateur INT NOT NULL UNIQUE,
+    CONSTRAINT parent_utilisateur FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id) ON DELETE CASCADE
 );
-CREATE TABLE Animateur (
-    id INT  auto_increment PRIMARY KEY,
-    id_utilisateur INT,
-    annee_exp INT,
-    disponible BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id)
-),
-CREATE TABLE Inscription_enfant (
-    id INT auto_increment PRIMARY KEY,
-    date_debut DATE
 
-),
-CREATE TABLE Enfant (
-    id INT auto_increment PRIMARY KEY,
+CREATE TABLE animateur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    experience INT DEFAULT 0,
+    disponible BOOLEAN NOT NULL DEFAULT TRUE,
+    capacite INT NOT NULL DEFAULT 8,
+    id_utilisateur INT NOT NULL UNIQUE,
+    CONSTRAINT fk_animateur_utilisateur FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id) ON DELETE CASCADE
+);
+
+CREATE TABLE enfant (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
     date_naissance DATE NOT NULL,
-    id_parent INT,
-    FOREIGN KEY (id_parent) REFERENCES parent(id)
+    pai BOOLEAN NOT NULL DEFAULT FALSE,
+    detail_pai TEXT NULL,
+    id_parent INT NOT NULL,
+    id_animateur INT NULL,
+    CONSTRAINT fk_enfant_parent FOREIGN KEY (id_parent) REFERENCES parent(id) ON DELETE CASCADE,
+    CONSTRAINT fk_enfant_animateur FOREIGN KEY (id_animateur) REFERENCES animateur(id) ON DELETE SET NULL
+);
+
+CREATE TABLE inscription_enfant (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date_debut DATE NOT NULL,
+    id_enfant INT NOT NULL,
+    CONSTRAINT fk_inscription_enfant FOREIGN KEY (id_enfant) REFERENCES enfant(id) ON DELETE CASCADE
 )
