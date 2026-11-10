@@ -1,14 +1,13 @@
 <?php
+try {
+    $host = getenv('DB_HOST') ?: 'localhost';
+    $port = getenv('DB_PORT') ?: '3306';
+    $db   = getenv('DB_DATABASE') ?: 'creche';
+    $user = getenv('DB_USERNAME') ?: 'root';
+    $pass = getenv('DB_PASSWORD') !== false ? getenv('DB_PASSWORD') : 'root';
 
-    try{
-        $user = "root";
-        $pass = "root";
-        $db="creche";
-        $host= "localhost";
-        $dsn="mysql:host=$host;dbname=$db";
-        $bdd = new PDO($dsn,$user, $pass);
-    } catch(PDOException $e) { //try catch pour gérer les erreurs de connexion à la base de données. le try catch est une structure de contrôle qui permet de gérer les erreurs en essayant d'exécuter un code et en attrapant l'erreur si elle se produit. le PDOException est une classe d'exception qui est levée lorsque une erreur se produit lors de l'utilisation de PDO. le getMessage() est une méthode qui permet de récupérer le message d'erreur de l'exception. et $e est une variable qui contient l'exception levée.
-        print "Erreur! :" .$e ->getmessage() . 
-        "<br/>";
-        die();
-    }
+    $bdd = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4", $user, $pass);
+} catch (PDOException $e) {
+    error_log('Connexion BDD : ' . $e->getMessage());
+    die('Erreur de connexion à la base de données.');
+}
